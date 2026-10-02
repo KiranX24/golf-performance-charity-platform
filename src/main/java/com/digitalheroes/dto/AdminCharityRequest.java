@@ -1,0 +1,2 @@
+package com.digitalheroes.dto;
+import jakarta.validation.constraints.NotBlank; public record AdminCharityRequest(@NotBlank String name,@NotBlank String slug,String description,String logoUrl,boolean featured){}

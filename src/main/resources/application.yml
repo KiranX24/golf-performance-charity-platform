@@ -1,0 +1,93 @@
+spring:
+  application:
+    name: digital-heroes-backend
+
+  # ---------------------------------------------------------------
+  # Database — Supabase PostgreSQL. All values come from environment
+  # variables. Nothing here is a literal credential.
+  # ---------------------------------------------------------------
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}?sslmode=require
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+
+  # ---------------------------------------------------------------
+  # JPA / Hibernate — Flyway owns the schema. Hibernate only ever
+  # VALIDATES entities against it; it must never create or alter
+  # tables itself.
+  # ---------------------------------------------------------------
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+    show-sql: false
+
+  # ---------------------------------------------------------------
+  # Flyway
+  # ---------------------------------------------------------------
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    validate-on-migrate: true
+
+server:
+  port: ${SERVER_PORT:8080}
+
+# ---------------------------------------------------------------
+# JWT — secret must be supplied via environment variable. No
+# fallback default is given for the secret itself, so the app
+# fails fast at startup rather than silently running insecurely.
+# ---------------------------------------------------------------
+app:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration-ms: ${JWT_EXPIRATION_MS:3600000}
+    refresh-expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:604800000}
+
+  cors:
+    allowed-origin: ${FRONTEND_URL:http://localhost:5173}
+
+  demo:
+    enabled: ${DEMO_SEED_ENABLED:true}
+    user-email: ${DEMO_USER_EMAIL:demo@digitalheroes.local}
+    user-password: ${DEMO_USER_PASSWORD:Demo@12345}
+    admin-email: ${DEMO_ADMIN_EMAIL:admin@digitalheroes.local}
+    admin-password: ${DEMO_ADMIN_PASSWORD:Admin@12345}
+
+  stripe:
+    secret-key: ${STRIPE_SECRET_KEY:}
+    webhook-secret: ${STRIPE_WEBHOOK_SECRET:}
+    success-url: ${STRIPE_SUCCESS_URL:http://localhost:5173/plans?payment=success}
+    cancel-url: ${STRIPE_CANCEL_URL:http://localhost:5173/plans?payment=cancelled}
+
+  supabase:
+    url: ${SUPABASE_URL:}
+    anon-key: ${SUPABASE_ANON_KEY:}
+    service-role-key: ${SUPABASE_SERVICE_ROLE_KEY:}
+    storage-bucket: ${SUPABASE_STORAGE_BUCKET:winner-proofs}
+
+# ---------------------------------------------------------------
+# springdoc / Swagger UI
+# ---------------------------------------------------------------
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+logging:
+  level:
+    root: INFO
+    com.digitalheroes: DEBUG
+    org.hibernate.SQL: WARN
