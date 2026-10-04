@@ -760,7 +760,11 @@ export default function Layout({
 
           <div className="logo">
 
- 
+            <img
+  src="/logo.jpg"
+  alt="Golf Performance & Charity Draw"
+  className="brand-logo"
+/>
 
             <span className="logo-mark">
               G

@@ -760,8 +760,6 @@ export default function Layout({
 
           <div className="logo">
 
- 
-
             <span className="logo-mark">
               G
             </span>

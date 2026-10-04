@@ -760,7 +760,11 @@ export default function Layout({
 
           <div className="logo">
 
- 
+            <img
+  src="/downloads/DigitalHeroes-Updated-Phase1-11-Fixed/digital-heroes-backend/frontend/public/logo.jpeg"
+  alt="Golf Performance & Charity Draw"
+  className="brand-logo"
+/>
 
             <span className="logo-mark">
               G

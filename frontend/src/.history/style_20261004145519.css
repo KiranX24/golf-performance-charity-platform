@@ -1186,3 +1186,10 @@ textarea {
 .mobile-bottom-nav {
   display: none !important;
 }
+
+.brand-logo {
+  width: 46px;
+  height: 46px;
+  object-fit: contain;
+  display: block;
+}
